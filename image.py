@@ -17,10 +17,7 @@ class Image:
             raise ValueError("You need to input either a filename OR specify the dimensions of the image")
 
     def read_image(self, filename, gamma=2.2):
-        '''
-        read PNG RGB image, return 3D numpy array organized along Y, X, channel
-        values are float, gamma is decoded
-        '''
+
         im = png.Reader(self.input_path + filename).asFloat()
         resized_image = np.vstack(list(im[2]))
         resized_image.resize(im[1], im[0], 3)
@@ -28,9 +25,7 @@ class Image:
         return resized_image
 
     def write_image(self, output_file_name, gamma=2.2):
-        '''
-        3D numpy array (Y, X, channel) of values between 0 and 1 -> write to png
-        '''
+
         im = np.clip(self.array, 0, 1)
         y, x = self.array.shape[0], self.array.shape[1]
         im = im.reshape(y, x*3)
